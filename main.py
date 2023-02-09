@@ -6,6 +6,7 @@ import requests
 lat = 55.703118  # широта
 lon = 37.530887  # долгота
 delta = 0.005  # зум
+coef = 1
 
 params = {
     "ll": f"{lon},{lat}",
@@ -34,14 +35,29 @@ def draw_map():
 
 
 def update_zoom(change_delta):
-    global delta
+    global delta, coef
     if change_delta == -1:
         delta /= 2
+        coef /= 2
     else:
         delta *= 2
+        coef *= 2
     delta = max(delta, 0.00125)
     delta = min(delta, 20.48)
     params["spn"] = f"{delta},{delta}"
+
+
+def update_coords(change_cords):
+    global lat, lon, coef
+    if change_cords == 'UP':
+        lat += 0.001 * coef
+    elif change_cords == 'DOWN':
+        lat -= 0.001 * coef
+    elif change_cords == 'RIGHT':
+        lon += 0.001 * coef
+    elif change_cords == 'LEFT':
+        lon -= 0.001 * coef
+    params["ll"] = f"{lon},{lat}"
 
 
 if __name__ == '__main__':
@@ -61,4 +77,17 @@ if __name__ == '__main__':
                 elif event.key == pygame.K_PAGEDOWN:
                     update_zoom(1)
                     draw_map()
+                elif event.key == pygame.K_UP:
+                    update_coords('UP')
+                    draw_map()
+                elif event.key == pygame.K_DOWN:
+                    update_coords('DOWN')
+                    draw_map()
+                elif event.key == pygame.K_RIGHT:
+                    update_coords('RIGHT')
+                    draw_map()
+                elif event.key == pygame.K_LEFT:
+                    update_coords('LEFT')
+                    draw_map()
+
     pygame.quit()
