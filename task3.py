@@ -6,6 +6,7 @@ import requests
 lat = 55.703118  # широта
 lon = 37.530887  # долгота
 delta = 0.005  # зум
+coef = 1
 
 params = {
     "ll": f"{lon},{lat}",
@@ -34,27 +35,28 @@ def draw_map():
 
 
 def update_zoom(change_delta):
-    global delta
+    global delta, coef
     if change_delta == -1:
         delta /= 2
+        coef /= 2
     else:
         delta *= 2
+        coef *= 2
     delta = max(delta, 0.00125)
     delta = min(delta, 20.48)
     params["spn"] = f"{delta},{delta}"
 
 
 def update_coords(change_cords):
-    global lat
-    global lon
+    global lat, lon, coef
     if change_cords == 'UP':
-        lat += 0.0001
+        lat += 0.001 * coef
     elif change_cords == 'DOWN':
-        lat -= 0.0001
+        lat -= 0.001 * coef
     elif change_cords == 'RIGHT':
-        lon += 0.0001
+        lon += 0.001 * coef
     elif change_cords == 'LEFT':
-        lon -= 0.0001
+        lon -= 0.001 * coef
     params["ll"] = f"{lon},{lat}"
 
 
