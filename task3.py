@@ -54,7 +54,7 @@ def update_coords(change_cords):
         lon += 0.00002
     elif change_cords == 'LEFT':
         lon -= 0.00002
-    params["spn"] = f"{lon},{lat}"
+    params["ll"] = f"{lon},{lat}"
 
 if __name__ == '__main__':
     pygame.init()
