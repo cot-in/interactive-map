@@ -26,13 +26,16 @@ map_file = "map.png"
 with open(map_file, "wb") as file:
     file.write(response.content)
 
-pygame.init()
-screen = pygame.display.set_mode((600, 450))
-
-screen.blit(pygame.image.load(map_file), (0, 0))
-pygame.display.flip()
-while pygame.event.wait().type != pygame.QUIT:
-    pass
-pygame.quit()
-
-os.remove(map_file)
+if __name__ == '__main__':
+    pygame.init()
+    screen = pygame.display.set_mode((600, 450))
+    screen.blit(pygame.image.load(map_file), (0, 0))
+    pygame.display.flip()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        pygame.display.flip()
+    os.remove(map_file)
+    pygame.quit()
