@@ -89,5 +89,14 @@ if __name__ == '__main__':
                 elif event.key == pygame.K_LEFT:
                     update_coords('LEFT')
                     draw_map()
+                elif event.key == pygame.K_s:
+                    params["l"] = "map"
+                    draw_map()
+                elif event.key == pygame.K_d:
+                    params["l"] = "sat"
+                    draw_map()
+                elif event.key == pygame.K_f:
+                    params["l"] = "sat,skl"
+                    draw_map()
 
     pygame.quit()
