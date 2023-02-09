@@ -41,20 +41,22 @@ def update_zoom(change_delta):
         delta *= 2
     delta = max(delta, 0.00125)
     delta = min(delta, 20.48)
-    params["ll"] = f"{lon},{lat}"
+    params["spn"] = f"{delta},{delta}"
+
 
 def update_coords(change_cords):
     global lat
     global lon
     if change_cords == 'UP':
-        lat += 0.00002
+        lat += 0.0001
     elif change_cords == 'DOWN':
-        lat -= 0.00002
+        lat -= 0.0001
     elif change_cords == 'RIGHT':
-        lon += 0.00002
+        lon += 0.0001
     elif change_cords == 'LEFT':
-        lon -= 0.00002
+        lon -= 0.0001
     params["ll"] = f"{lon},{lat}"
+
 
 if __name__ == '__main__':
     pygame.init()
@@ -85,6 +87,5 @@ if __name__ == '__main__':
                 elif event.key == pygame.K_LEFT:
                     update_coords('LEFT')
                     draw_map()
-
 
     pygame.quit()
