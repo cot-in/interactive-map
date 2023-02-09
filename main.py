@@ -3,8 +3,18 @@ import sys
 import pygame
 import requests
 
-map_request = "http://static-maps.yandex.ru/1.x/?ll=37.530887,55.703118&spn=0.002,0.002&l=map"
-response = requests.get(map_request)
+lat = 55.703118  # широта
+lon = 37.530887  # долгота
+delta = 0.005  # зум
+
+params = {
+    "ll": f"{lon},{lat}",
+    "spn": f"{delta},{delta}",
+    "l": "map",
+}
+
+map_request = "http://static-maps.yandex.ru/1.x/"
+response = requests.get(map_request, params=params)
 
 if not response:
     print("Ошибка выполнения запроса:")
